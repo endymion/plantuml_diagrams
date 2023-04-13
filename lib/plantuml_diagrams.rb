@@ -10,7 +10,7 @@ require 'uri'
 module PlantumlDiagrams
   class GenerateDiagrams < Thor
     desc "process", "Process PlantUML files and display generated images."
-    method_option :jar, aliases: "-j", default: File.join(Dir.pwd, "plantuml.jar"), desc: "Path to the PlantUML jar file."
+    method_option :jar, aliases: "-j", default: File.join(File.dirname(__FILE__), "plantuml.jar"), desc: "Path to the PlantUML jar file."
     method_option :input, aliases: "-i", default: Dir.pwd, desc: "Path to the folder containing PlantUML files."
     method_option :output, aliases: "-o", default: File.join(Dir.pwd, "images"), desc: "Path to the folder where generated images will be saved."
     method_option :name, aliases: "-n", desc: "Process only diagrams with file names matching this argument."
@@ -32,14 +32,9 @@ module PlantumlDiagrams
 
       if options[:watch]
         filewatcher = Filewatcher.new(plantuml_files)
-        filewatcher.watch do |changes|
-          changes.each do |filename, event|
-            puts "Detected event: #{event} for file: #{filename}"
-            if event == :updated
-              puts "Processing #{filename}"
-              run_plantuml(options[:jar], filename, options[:output], file_types, options[:display])
-            end
-          end
+        filewatcher.watch do |filename|
+          puts "Changes detected, processing: #{filename}"
+          run_plantuml(options[:jar], filename, options[:output], file_types, options[:display])
         end
       else
         plantuml_files.each do |plantuml_file|
