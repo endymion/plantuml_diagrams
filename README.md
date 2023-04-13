@@ -34,7 +34,7 @@ You can make a `plantuml.jar` available by making a symbolic link from the file 
 
     ln -s plantuml-1.2023.5.jar plantuml.jar
 
-### Graphviz
+#### Graphviz
 
 Some diagrams also require Graphviz.
 
