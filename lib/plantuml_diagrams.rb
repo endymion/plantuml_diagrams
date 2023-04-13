@@ -47,7 +47,7 @@ module PlantumlDiagrams
     desc "download_jar", "Download the PlantUML jar file."
     def download_jar
       plantuml_jar_url = 'https://github.com/plantuml/plantuml/releases/download/v1.2023.5/plantuml.jar'
-      output_path = File.join(Dir.pwd, "plantuml.jar")
+      output_path = File.join(File.dirname(__FILE__), "plantuml.jar")
 
       puts "Downloading PlantUML jar file from #{plantuml_jar_url}..."
       download_file(plantuml_jar_url, output_path)
