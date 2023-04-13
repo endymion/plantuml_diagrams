@@ -10,9 +10,9 @@ require 'uri'
 module PlantumlDiagrams
   class GenerateDiagrams < Thor
     desc "process", "Process PlantUML files and display generated images."
-    method_option :jar, aliases: "-j", default: File.join(File.dirname(__FILE__), "plantuml.jar"), desc: "Path to the PlantUML jar file."
-    method_option :input, aliases: "-i", default: File.dirname(__FILE__), desc: "Path to the folder containing PlantUML files."
-    method_option :output, aliases: "-o", default: File.join(File.dirname(__FILE__), "images"), desc: "Path to the folder where generated images will be saved."
+    method_option :jar, aliases: "-j", default: File.join(Dir.pwd, "plantuml.jar"), desc: "Path to the PlantUML jar file."
+    method_option :input, aliases: "-i", default: Dir.pwd, desc: "Path to the folder containing PlantUML files."
+    method_option :output, aliases: "-o", default: File.join(Dir.pwd, "images"), desc: "Path to the folder where generated images will be saved."
     method_option :name, aliases: "-n", desc: "Process only diagrams with file names matching this argument."
     method_option :display, aliases: "-d", type: :boolean, desc: "Display generated images."
     method_option :watch, aliases: "-w", type: :boolean, desc: "Continuously watch for changes to the file(s)."
@@ -52,7 +52,7 @@ module PlantumlDiagrams
     desc "download_jar", "Download the PlantUML jar file."
     def download_jar
       plantuml_jar_url = 'https://github.com/plantuml/plantuml/releases/download/v1.2023.5/plantuml.jar'
-      output_path = File.join(File.dirname(__FILE__), "plantuml.jar")
+      output_path = File.join(Dir.pwd, "plantuml.jar")
 
       puts "Downloading PlantUML jar file from #{plantuml_jar_url}..."
       download_file(plantuml_jar_url, output_path)
@@ -71,6 +71,7 @@ module PlantumlDiagrams
 
         display_image(output_file) if display && file_type == "PNG"
       end
+   
     end
 
     def display_image(image_path)
@@ -98,7 +99,5 @@ module PlantumlDiagrams
         end
       end
     end
-
-
   end
 end
