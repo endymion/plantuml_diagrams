@@ -18,6 +18,26 @@ If you are not using Bundler, you can install the gem by running:
 
     $ gem install plantuml_diagrams
 
+### Prerequisites
+
+#### Java
+
+To render the diagrams, you'll need to install Java.
+
+#### PlantUML
+
+And then you'll also need PlantUML. Grab the `.jar` file from https://plantuml.com/download
+
+This code assumes that the file is available as `plantuml.jar` in your project's `diagrams/` folder, where your PlantUML code files are located.  You'll run the generator command from that current working folder.  You can explicitly specify the path of the `.jar` file with a command-line argument if necessary.
+
+You can make a `plantuml.jar` available by making a symbolic link from the file you downloaded with the specific version in the filename to the more generic name:
+
+    ln -s plantuml-1.2023.5.jar plantuml.jar
+
+### Graphviz
+
+Some diagrams also require Graphviz.
+
 ## Usage
 
 To generate diagrams from PlantUML files, run the following command:
